@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@changesets/cli": "^2.27.5"
+    "@changesets/cli": "^2.27.8"
   },
   "packageManager": "pnpm@8.6.3"
 }
