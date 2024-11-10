@@ -16,7 +16,8 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {
-			"version": "20"
+			"version": "20",
+			"pnpmVersion": "9.12.3"
 		}
 	},
 	"updateContentCommand": "pnpm install"
