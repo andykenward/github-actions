@@ -1,5 +1,11 @@
 # github-actions
 
+## 1.0.2
+
+### Patch Changes
+
+- 231bbc6: bump all actions
+
 ## 1.0.1
 
 ### Patch Changes
