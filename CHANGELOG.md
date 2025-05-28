@@ -1,5 +1,13 @@
 # github-actions
 
+## 1.0.3
+
+### Patch Changes
+
+- 0b6bf13: chore: bump actions/setup-node from 4.1.0 to 4.4.0
+- 0b6bf13: bump actions/checkout from 4.2.1 to 4.2.2
+- 0b6bf13: chore: bump pnpm/action-setup from 4.0.0 to 4.1.0
+
 ## 1.0.2
 
 ### Patch Changes

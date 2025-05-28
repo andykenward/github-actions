@@ -1,5 +1,0 @@
----
-"github-actions": patch
----
-
-bump actions/checkout from 4.2.1 to 4.2.2
