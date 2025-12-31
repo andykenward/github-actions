@@ -1,5 +1,11 @@
 # github-actions
 
+## 2.0.0
+
+### Major Changes
+
+- 9a76f19: Upgrade all github actions
+
 ## 1.0.3
 
 ### Patch Changes
