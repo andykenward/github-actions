@@ -1,5 +1,11 @@
 # github-actions
 
+## 3.0.0
+
+### Major Changes
+
+- ab45e0f: Node.js 24
+
 ## 2.0.0
 
 ### Major Changes
