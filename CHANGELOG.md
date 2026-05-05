@@ -1,5 +1,11 @@
 # github-actions
 
+## 3.0.1
+
+### Patch Changes
+
+- a543050: chore(deps): bump actions/setup-node from 6.3.0 to 6.4.0 in /setup-pnpm (#82)
+
 ## 3.0.0
 
 ### Major Changes
