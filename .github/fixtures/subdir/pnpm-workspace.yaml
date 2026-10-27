@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pnpm-workspace.json
+
+# Makes this directory its own workspace root, so `pnpm install` here doesn't
+# walk up to the repo's workspace. No packageManager in package.json, so the
+# test passes pnpm-version instead.
+pmOnFail: ignore
