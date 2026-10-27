@@ -1,5 +1,15 @@
 # github-actions
 
+## 4.0.0
+
+### Major Changes
+
+- da86897: setup-pnpm: default `node-version` is now `24.x` (was `20.x`)
+
+### Minor Changes
+
+- da86897: setup-pnpm: add `cache`, `node-version-file`, `pnpm-version` and `working-directory` inputs and `cache-hit` / `node-version` outputs. `pnpm install` now passes `--frozen-lockfile` explicitly; this is already pnpm's default on GitHub-hosted runners, and now also applies on runners that don't set `CI`.
+
 ## 3.0.1
 
 ### Patch Changes
