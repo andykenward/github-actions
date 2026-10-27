@@ -8,6 +8,9 @@
     "release": "changeset publish"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "dependencies": {
     "@changesets/cli": "^3.0.3"
   },

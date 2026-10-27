@@ -9,7 +9,7 @@ inputs:
   node-version:
     description: "Version of Node"
     required: false
-    default: 20.x
+    default: 24.x
 runs:
   using: "composite"
   steps:
