@@ -36,8 +36,10 @@ jobs:
           - name: no cache
             cache: "false"
           # The fixture has no packageManager field, so pnpm-version is required.
+          # node-version-file resolves relative to working-directory.
           - name: working-directory + pnpm-version
             working-directory: .github/fixtures/subdir
+            node-version-file: .node-version
             pnpm-version: 12.14.0
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1

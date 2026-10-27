@@ -11,11 +11,11 @@ inputs:
     required: false
     default: ""
   node-version-file:
-    description: "File to read the Node version from (e.g. .nvmrc, .node-version, package.json), relative to the repository root"
+    description: "File to read the Node version from (e.g. .nvmrc, .node-version, package.json), relative to working-directory"
     required: false
     default: ""
   pnpm-version:
-    description: "Version of pnpm. Leave unset to use the packageManager field in package.json."
+    description: "Version of pnpm, for projects without a packageManager field in package.json. pnpm/action-setup fails if both are set and differ."
     required: false
     default: ""
   cache:
@@ -46,9 +46,8 @@ runs:
         # node-version wins over node-version-file in setup-node, so only
         # fall back to 24.x when neither is given.
         node-version: ${{ inputs.node-version || (inputs.node-version-file == '' && '24.x' || '') }}
-        node-version-file: ${{ inputs.node-version-file }}
+        node-version-file: ${{ inputs.node-version-file && format('{0}/{1}', inputs.working-directory, inputs.node-version-file) || '' }}
         cache: ${{ inputs.cache == 'true' && 'pnpm' || '' }}
-        package-manager-cache: ${{ inputs.cache }}
         cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
     # Inputs reach this step only through working-directory, never the script.
     - name: Install dependencies

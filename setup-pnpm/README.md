@@ -14,7 +14,7 @@ steps:
   - uses: andykenward/github-actions/setup-pnpm@<sha> # v4.0.0
 ```
 
-The pnpm version comes from the `packageManager` field in `package.json` unless `pnpm-version` is set.
+The pnpm version comes from the `packageManager` field in `package.json`. Use `pnpm-version` only for projects without that field; `pnpm/action-setup` fails if both are set and differ.
 
 ### Release and publish jobs
 
@@ -31,8 +31,8 @@ Turn off caching so a cache entry written by a less trusted workflow can't end u
 | Input               | Default                                    | Description                                                                                 |
 | ------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------- |
 | `node-version`      | `24.x` (unless `node-version-file` is set) | Version of Node.                                                                            |
-| `node-version-file` |                                            | File to read the Node version from (`.nvmrc`, `.node-version`, `package.json`), relative to the repository root. |
-| `pnpm-version`      |                                            | Version of pnpm. Leave unset to use `packageManager` in `package.json`.                     |
+| `node-version-file` |                                            | File to read the Node version from (`.nvmrc`, `.node-version`, `package.json`), relative to `working-directory`. |
+| `pnpm-version`      |                                            | Version of pnpm, for projects without `packageManager` in `package.json`.                   |
 | `cache`             | `true`                                     | Cache the pnpm store.                                                                       |
 | `working-directory` | `.`                                        | Directory containing `package.json` and `pnpm-lock.yaml`, relative to the repository root.  |
 

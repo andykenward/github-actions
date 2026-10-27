@@ -11,12 +11,17 @@ on:
 # Deny all permissions by default; grant only what's needed per job
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   zizmor:
     name: zizmor
     # Fork PRs get a read-only token, so the SARIF upload would fail.
     if: ${{ !github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       security-events: write # upload SARIF to GitHub code scanning
       contents: read # only needed for private or internal repos
