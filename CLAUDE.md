@@ -10,7 +10,7 @@ A collection of reusable GitHub Actions, currently one composite action: [setup-
 
 - The repo is a single private package (`github-actions` in [package.json](package.json)); its version is the version of every action here. [.changeset/config.json](.changeset/config.json) sets `privatePackages.tag: true`, so a release creates a git tag rather than publishing to npm.
 - Any change consumers would notice needs a changeset: `pnpm changeset` writes a file in `.changeset/`. Past practice in [CHANGELOG.md](CHANGELOG.md): dependency bumps of actions inside `setup-pnpm` are **patch**; Node.js major changes and upgrades to all actions are **major**.
-- [.github/workflows/release.yml](.github/workflows/release.yml) runs on push to `main`. It uses the local `./setup-pnpm` action, then `changesets/action` either opens the "Version Packages" PR or runs `pnpm release` (`changeset publish`) to tag.
+- [.github/workflows/release.yml](.github/workflows/release.yml) runs on push to `main`. It uses the in-repo `$/setup-pnpm` action (self-repository syntax: same commit, no checkout needed), then `changesets/action` either opens the "Version Packages" PR or runs `pnpm release` (`changeset publish`) to tag.
 
 ## Conventions
 
