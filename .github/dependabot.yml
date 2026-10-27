@@ -2,24 +2,38 @@
 
 version: 2
 updates:
-  # Maintain dependencies for GitHub Actions
+  # Maintain dependencies for GitHub Actions (workflows and the composite action)
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/"
+      - "/setup-pnpm"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
 
-  - package-ecosystem: "github-actions"
-    directory: "/setup-pnpm"
-    schedule:
-      interval: "daily"
-
-  # Maintain dependencies for npm
+  # Maintain dependencies for npm. Cooldown matches pnpm's minimumReleaseAge
+  # (10080 minutes) in pnpm-workspace.yaml, so PRs never target a version pnpm
+  # would refuse to install.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
 
+  # Dev container features in devcontainer.json
   - package-ecosystem: "devcontainers"
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 7
+
+  # Dev container base image (tag + digest) in .devcontainer/Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
