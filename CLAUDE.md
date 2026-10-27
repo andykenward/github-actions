@@ -14,6 +14,7 @@ A collection of reusable GitHub Actions, currently one composite action: [setup-
 
 ## Conventions
 
+- [.github/workflows/zizmor.yml](.github/workflows/zizmor.yml) audits `.github` and `setup-pnpm` on PRs and pushes to `main`, and uploads the results to code scanning. Workflows set `permissions: {}` at the top and grant only what each job needs, and checkouts use `persist-credentials: false`.
 - Pin every third-party action to a full commit SHA with a trailing `#vX.Y.Z` comment (e.g. `uses: actions/checkout@<sha> #v7.0.1`). Dependabot updates these.
 - YAML files start with a `# yaml-language-server: $schema=...` line pointing at the matching schemastore schema.
 - Node 24 is the target everywhere: `engines.node`, the `setup-pnpm` default `node-version`, the release workflow and the dev container. Keep them in sync.
