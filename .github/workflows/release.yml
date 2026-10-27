@@ -27,6 +27,8 @@ jobs:
           persist-credentials: false
       - name: Setup Node.js Pnpm & install dependencies
         uses: $/setup-pnpm
+        with:
+          cache: false # release job; don't restore a possibly poisoned cache
       # GitHub doesn't run workflows for PRs and pushes made with GITHUB_TOKEN;
       # an app token lets the Version Packages PR get its checks.
       - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 #v3.2.0

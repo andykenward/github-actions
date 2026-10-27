@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A collection of reusable GitHub Actions, currently one composite action: [setup-pnpm/action.yml](setup-pnpm/action.yml) (pnpm/action-setup → actions/setup-node with pnpm cache → `pnpm install`). Other repos consume it as `andykenward/github-actions/setup-pnpm@<ref>`. There is no build, lint or test step; the only Node tooling is Changesets for versioning.
+A collection of reusable GitHub Actions, currently one composite action: [setup-pnpm/action.yml](setup-pnpm/action.yml) (pnpm/action-setup → actions/setup-node with pnpm cache → `pnpm install --frozen-lockfile`), documented in [setup-pnpm/README.md](setup-pnpm/README.md). [.github/workflows/test.yml](.github/workflows/test.yml) runs it from the current commit across its input combinations; keep the README inputs table, action.yml and that matrix in sync. Other repos consume it as `andykenward/github-actions/setup-pnpm@<ref>`. There is no build or lint step; the only Node tooling is Changesets for versioning.
 
 ## Releases (Changesets)
 

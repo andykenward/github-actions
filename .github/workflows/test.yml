@@ -1,0 +1,56 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+# Runs the setup-pnpm action from this commit with each Node-version source and
+# with caching on and off.
+name: test
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  setup-pnpm:
+    name: setup-pnpm (${{ matrix.name }})
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: defaults
+          - name: node-version
+            node-version: 24.x
+          - name: node-version-file
+            node-version-file: package.json
+          - name: no cache
+            cache: "false"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+        with:
+          persist-credentials: false
+      - uses: $/setup-pnpm
+        id: setup
+        with:
+          node-version: ${{ matrix.node-version }}
+          node-version-file: ${{ matrix.node-version-file }}
+          cache: ${{ matrix.cache || 'true' }}
+      - name: Check Node major and outputs
+        shell: bash
+        env:
+          NODE_VERSION: ${{ steps.setup.outputs.node-version }}
+          CACHE_HIT: ${{ steps.setup.outputs.cache-hit }}
+        run: |
+          echo "node-version=$NODE_VERSION cache-hit=$CACHE_HIT"
+          [[ "$(node -p 'process.versions.node.split(".")[0]')" == "24" ]]
+          [[ "$NODE_VERSION" == v24.* ]]
