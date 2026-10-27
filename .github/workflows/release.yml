@@ -16,7 +16,7 @@ jobs:
   release:
     name: Release
     if: ${{ github.repository == 'andykenward/github-actions' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     # Pushes and PRs go through the app token below, so GITHUB_TOKEN only reads.
     permissions:
       contents: read
