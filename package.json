@@ -11,5 +11,5 @@
   "dependencies": {
     "@changesets/cli": "^3.0.3"
   },
-  "packageManager": "pnpm@10.11.0"
+  "packageManager": "pnpm@12.14.0"
 }
