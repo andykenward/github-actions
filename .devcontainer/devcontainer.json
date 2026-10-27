@@ -28,17 +28,13 @@
 		}
 	},
 	"postCreateCommand": {
+		// Object form: the entries run in parallel and are independent.
 		// Native installer (~/.local/bin) so Claude Code can auto-update without sudo.
-		// One entry: object entries run in parallel, and the plugin installs need
-		// claude and both write its plugin files.
-		"claude": "curl -fsSL https://claude.ai/install.sh | bash && export PATH=\"$HOME/.local/bin:$PATH\"",
+		"claude": "curl -fsSL https://claude.ai/install.sh | bash",
 		"pnpm": "pnpm i"
 	},
 	"containerEnv": {
-		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
-		// prek builds Python hooks (zizmor) with uv, which can't use the image's
-		// python3-minimal; make uv download its own interpreter instead.
-		"UV_PYTHON_PREFERENCE": "only-managed"
+		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
 	},
 	"mounts": [
 		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
