@@ -11,6 +11,12 @@ updates:
       interval: "weekly"
     cooldown:
       default-days: 7
+    groups:
+      # `changesets/action`, `/pr-status` and `/pr-comment` are one repo at one
+      # SHA; without this each sub-action gets its own PR.
+      changesets:
+        patterns:
+          - "changesets/action*"
 
   # Maintain dependencies for npm. Cooldown matches pnpm's minimumReleaseAge
   # (10080 minutes) in pnpm-workspace.yaml, so PRs never target a version pnpm
