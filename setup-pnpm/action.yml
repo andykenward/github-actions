@@ -28,7 +28,7 @@ inputs:
     default: "."
 outputs:
   cache-hit:
-    description: "Whether the pnpm store was restored from the cache"
+    description: "Whether the pnpm store was restored from the cache; empty when cache is false"
     value: ${{ steps.setup-node.outputs.cache-hit }}
   node-version:
     description: "The installed Node version"
@@ -48,6 +48,8 @@ runs:
         node-version: ${{ inputs.node-version || (inputs.node-version-file == '' && '24.x' || '') }}
         node-version-file: ${{ inputs.node-version-file && format('{0}/{1}', inputs.working-directory, inputs.node-version-file) || '' }}
         cache: ${{ inputs.cache == 'true' && 'pnpm' || '' }}
+        # Also rule out setup-node's automatic packageManager caching when off.
+        package-manager-cache: ${{ inputs.cache == 'true' }}
         cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
     # Inputs reach this step only through working-directory, never the script.
     - name: Install dependencies

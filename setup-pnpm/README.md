@@ -8,10 +8,10 @@ Pin to a full commit SHA, with the release tag as a comment so Dependabot can up
 
 ```yaml
 steps:
-  - uses: actions/checkout@<sha> # v7.0.1
+  - uses: actions/checkout@<sha> #v7.0.1
     with:
       persist-credentials: false
-  - uses: andykenward/github-actions/setup-pnpm@<sha> # v4.0.0
+  - uses: andykenward/github-actions/setup-pnpm@<sha> #v4.0.0
 ```
 
 The pnpm version comes from the `packageManager` field in `package.json`. Use `pnpm-version` only for projects without that field; `pnpm/action-setup` fails if both are set and differ.
@@ -21,7 +21,7 @@ The pnpm version comes from the `packageManager` field in `package.json`. Use `p
 Turn off caching so a cache entry written by a less trusted workflow can't end up in a released build:
 
 ```yaml
-  - uses: andykenward/github-actions/setup-pnpm@<sha> # v4.0.0
+  - uses: andykenward/github-actions/setup-pnpm@<sha> #v4.0.0
     with:
       cache: false
 ```
@@ -40,5 +40,5 @@ Turn off caching so a cache entry written by a less trusted workflow can't end u
 
 | Output         | Description                                      |
 | -------------- | ------------------------------------------------ |
-| `cache-hit`    | Whether the pnpm store was restored from the cache. |
+| `cache-hit`    | Whether the pnpm store was restored from the cache; empty when `cache` is false. |
 | `node-version` | The installed Node version.                      |
