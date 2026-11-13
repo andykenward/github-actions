@@ -28,15 +28,7 @@ updates:
     cooldown:
       default-days: 7
 
-  # Dev container features in devcontainer.json
-  - package-ecosystem: "devcontainers"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    cooldown:
-      default-days: 7
-
-  # Dev container base image (tag + digest) in .devcontainer/Dockerfile
+  # Dev container image (tag + digest) in .devcontainer/Dockerfile
   - package-ecosystem: "docker"
     directory: "/.devcontainer"
     schedule:

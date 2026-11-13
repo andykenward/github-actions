@@ -17,13 +17,14 @@ A collection of reusable GitHub Actions, currently one composite action: [setup-
 - [.github/workflows/zizmor.yml](.github/workflows/zizmor.yml) audits `.github` and `setup-pnpm` on PRs and pushes to `main`, and uploads the results to code scanning. Workflows set `permissions: {}` at the top and grant only what each job needs, and checkouts use `persist-credentials: false`.
 - Pin every third-party action to a full commit SHA with a trailing `#vX.Y.Z` comment (e.g. `uses: actions/checkout@<sha> #v7.0.1`). Dependabot updates these.
 - YAML files start with a `# yaml-language-server: $schema=...` line pointing at the matching schemastore schema.
-- Node 24 is the target everywhere: `engines.node`, the `setup-pnpm` default `node-version`, the release workflow and the dev container. Keep them in sync.
-- pnpm is pinned by `packageManager` in package.json, and the dev container's node feature `pnpmVersion` should match it.
+- Node 24 is the target everywhere: `engines.node` and `devEngines.runtime.version` (same range), the `setup-pnpm` default `node-version` and the release workflow. Keep them in sync.
+- pnpm is pinned by `packageManager` in package.json.
+- The dev container uses the `ghcr.io/andykenward/devcontainer-dev` image, pinned by tag and digest in [.devcontainer/Dockerfile](.devcontainer/Dockerfile) so Dependabot bumps it. mise ([mise.toml](mise.toml)) installs Node and pnpm from package.json, and [mise.lock](mise.lock) pins their versions and checksums. After any change to `packageManager` or the Node range, including Dependabot bumps, run `mise lock` and commit `mise.lock` in the same PR.
 - Commit messages follow Conventional Commits (`chore:`, `chore(deps):`, …).
 
 ## Dependency updates
 
-[.github/dependabot.yml](.github/dependabot.yml) covers github-actions (`/` and `/setup-pnpm`; `/` scans only `.github/workflows`), npm, devcontainers features, and the docker base image in `.devcontainer/Dockerfile`. Every ecosystem is weekly with a 7-day cooldown.
+[.github/dependabot.yml](.github/dependabot.yml) covers github-actions (`/` and `/setup-pnpm`; `/` scans only `.github/workflows`), npm, and the dev container image in `.devcontainer/Dockerfile`. Every ecosystem is weekly with a 7-day cooldown.
 
 [pnpm-workspace.yaml](pnpm-workspace.yaml) settings that matter:
 - `minimumReleaseAge: 10080` (7 days). pnpm refuses to install newer versions, so the Dependabot cooldown must stay at 7 days or more.
