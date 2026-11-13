@@ -5,42 +5,26 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
-	"features": {
-		"ghcr.io/devcontainers/features/node:2.1.1": {
-			"version": "24",
-			"pnpmVersion": "12.14.0"
-		},
-		"ghcr.io/devcontainers/features/github-cli:1.1.3": {}
-	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"anthropic.claude-code",
 				"eamodio.gitlens",
-				"github.vscode-github-actions",
-				"github.vscode-pull-request-github",
 				"redhat.vscode-yaml"
-			],
-			"settings": {
-				"chat.disableAIFeatures": true,
-				"terminal.integrated.defaultProfile.linux": "zsh"
-			}
+			]
 		}
 	},
 	"postCreateCommand": {
-		// Object form: the entries run in parallel and are independent.
-		// Native installer (~/.local/bin) so Claude Code can auto-update without sudo.
-		"claude": "curl -fsSL https://claude.ai/install.sh | bash",
-		"pnpm": "pnpm i"
+		"post-create": "devcontainer-post-create && mise exec -- pnpm i"
 	},
 	"containerEnv": {
-		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+		"DEVCONTAINER_STARSHIP_CONFIG": "${containerWorkspaceFolder}/.devcontainer/starship.toml"
 	},
 	"mounts": [
-		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
-		"source=agents-${devcontainerId},target=/home/vscode/.agents,type=volume",
-		"source=gh-config-${devcontainerId},target=/home/vscode/.config/gh,type=volume",
-		"source=zsh-history-${devcontainerId},target=/home/vscode/.commandhistory,type=volume"
-	],
-	"remoteUser": "vscode"
+		"source=devcontainer-claude,target=/home/vscode/.claude,type=volume",
+		"source=devcontainer-gh,target=/home/vscode/.config/gh,type=volume",
+		"source=devcontainer-git,target=/home/vscode/.config/git,type=volume",
+		"source=${devcontainerId}-mise,target=/home/vscode/.local/share/mise,type=volume",
+		"source=${devcontainerId}-history,target=/commandhistory,type=volume",
+		"source=${devcontainerId}-vscode-extensions,target=/home/vscode/.vscode-server/extensions,type=volume"
+	]
 }
